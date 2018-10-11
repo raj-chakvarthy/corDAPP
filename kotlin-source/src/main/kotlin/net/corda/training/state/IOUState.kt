@@ -2,6 +2,8 @@ package net.corda.training.state
 
 import net.corda.core.contracts.Amount
 import net.corda.core.contracts.ContractState
+import net.corda.core.contracts.LinearState
+import net.corda.core.contracts.UniqueIdentifier
 import net.corda.core.identity.Party
 import net.corda.finance.POUNDS
 import java.util.*
@@ -15,9 +17,9 @@ import java.util.*
 data class IOUState(val amount: Amount<Currency>,
                     val lender: Party,
                     val borrower: Party,
-                    val paid: Amount<Currency> = 10.POUNDS): ContractState {
-
-
+                    val paid: Amount<Currency> = 10.POUNDS,
+                    override val linearId: UniqueIdentifier = UniqueIdentifier()
+                    ): ContractState, LinearState {
     override val participants: List<Party> get() = listOf(lender, borrower)
 }
 
